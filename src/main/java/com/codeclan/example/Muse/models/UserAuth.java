@@ -1,19 +1,15 @@
 package com.codeclan.example.Muse.models;
 
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Table(name = "AUTH_USER_DETAILS")
 @Entity
+@Table(name = "AUTH_USER_DETAILS")
 public class UserAuth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "USER_NAME", unique = true)
-    private String userName;
 
     @Column(name = "USER_KEY")
     private String password;
@@ -25,49 +21,25 @@ public class UserAuth {
     @Column(name = "UPDATED_ON")
     private Date updatedAt;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
 
-    public UserAuth(String userName, String password, Date createdAt, Date updatedAt,
-                    String firstName, String lastName, String email, String phoneNumber) {
-        this.userName = userName;
+    public UserAuth(String password, Date createdAt, Date updatedAt, String email) {
         this.password = password;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
 
     }
 
     public UserAuth() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassword() {
@@ -94,22 +66,6 @@ public class UserAuth {
         this.updatedAt = updatedAt;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -118,13 +74,11 @@ public class UserAuth {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public User getUser() {
+        return user;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
-
-
