@@ -1,10 +1,13 @@
 package com.codeclan.example.Muse.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 
 
 @Entity
-@Table(name = "USER_DETAILS")
+@Table(name = "user")
 public class User {
 
      @Id
@@ -24,15 +27,28 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserAuth userAuth;
 
+//    @JsonIgnoreProperties({"user"})
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    private ArrayList<Post> posts;
+
     public User(String firstName, String lastName, String userName, UserAuth userAuth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.userAuth = userAuth;
+//        this.posts = new ArrayList<>();
     }
 
     public User() {
     }
+//
+//    public ArrayList<Post> getPosts() {
+//        return posts;
+//    }
+//
+//    public void setPosts(ArrayList<Post> posts) {
+//        this.posts = posts;
+//    }
 
     public Long getId() {
         return id;
