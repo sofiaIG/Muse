@@ -1,5 +1,6 @@
 package com.codeclan.example.Muse.models;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -12,25 +13,28 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name ="TITLE")
+    @Column(name ="title")
     private String title;
 
-    @Column(name = "TEXT")
+    @Column(name = "text")
     private String text;
 
-//    @JsonIgnoreProperties({"posts"})
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+    @JsonIgnoreProperties({"posts"})
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+
 
     public Post(String title, String text, User user) {
         this.title = title;
         this.text = text;
-//        this.user = user;
+        this.user = user;
     }
 
     public Post() {
     }
+
 
     public Long getId() {
         return id;
@@ -56,11 +60,11 @@ public class Post {
         this.text = text;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
