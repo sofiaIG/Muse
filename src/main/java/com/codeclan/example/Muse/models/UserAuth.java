@@ -2,7 +2,7 @@ package com.codeclan.example.Muse.models;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
 
@@ -26,8 +26,8 @@ public class UserAuth {
     private User user;
 
 
-    public UserAuth(String password, String email) {
-        this.password = password;
+    public UserAuth(String email) {
+//        this.password = password;
         this.email = email;
     }
 
@@ -67,5 +67,16 @@ public class UserAuth {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String hashPassword(String plainTextPassword){
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    }
+
+    public void checkPass(String plainPassword, String hashedPassword) {
+        if (BCrypt.checkpw(plainPassword, hashedPassword))
+            System.out.println("The password matches.");
+        else
+            System.out.println("The password does not match.");
     }
 }

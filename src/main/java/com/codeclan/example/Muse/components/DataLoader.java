@@ -30,7 +30,10 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args){
 
         User user = new User("sofia", "ignatiadi", "sofiaIG");
-        UserAuth userAuth = new UserAuth("test123", "sofiaIG@gmail.com" );
+        UserAuth userAuth = new UserAuth("sofiaIG@gmail.com" );
+        userAuth.checkPass("test123", userAuth.hashPassword("test123"));
+        userAuth.setPassword(userAuth.hashPassword("test123"));
+        System.out.println(userAuth.getPassword());
         user.setUserAuth(userAuth);
         userAuth.setUser(user);
 
