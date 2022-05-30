@@ -1,6 +1,7 @@
 package com.codeclan.example.Muse.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class Post {
     @Column(name = "text")
     private String text;
 
-    @JsonIgnoreProperties({"posts"})
+//    @JsonIgnoreProperties({"posts"})
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

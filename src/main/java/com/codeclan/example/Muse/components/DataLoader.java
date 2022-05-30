@@ -9,8 +9,9 @@ import com.codeclan.example.Muse.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -29,11 +30,12 @@ public class DataLoader implements ApplicationRunner {
 
     public void run(ApplicationArguments args){
 
-        User user = new User("sofia", "ignatiadi", "sofiaIG");
+        User user = new User("Sofia", "Ignatiadi", "sofiaIG");
         UserAuth userAuth = new UserAuth("sofiaIG@gmail.com" );
-        userAuth.checkPass("test123", userAuth.hashPassword("test123"));
+        Collections.addAll(user.getFavouriteArtists(), "Mitski", "Japanese Breakfase", "Soccer Mommy",
+                "Snail Mail", "Phoebe Bridgers");
+        Collections.addAll(user.getCurrentlyListeningTo(), "Kendrick Lamar", "2Pac", "Melentini");
         userAuth.setPassword(userAuth.hashPassword("test123"));
-        System.out.println(userAuth.getPassword());
         user.setUserAuth(userAuth);
         userAuth.setUser(user);
 

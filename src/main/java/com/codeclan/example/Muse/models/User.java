@@ -25,6 +25,14 @@ public class User {
     @Column(name = "username", unique = true)
     private String userName;
 
+    @Column(name = "favorite_artists")
+    @Convert(converter = ListToStringConverter.class)
+    private List<String> favouriteArtists;
+
+    @Column(name = "currently_listening_to")
+    @Convert(converter = ListToStringConverter.class)
+    private List<String> currentlyListeningTo;
+
     @JsonBackReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -41,9 +49,27 @@ public class User {
         this.lastName = lastName;
         this.userName = userName;
         this.posts = new ArrayList<>();
+        this.favouriteArtists = new ArrayList<>();
+        this.currentlyListeningTo = new ArrayList<>();
     }
 
     public User() {
+    }
+
+    public List<String> getCurrentlyListeningTo() {
+        return currentlyListeningTo;
+    }
+
+    public void setCurrentlyListeningTo(List<String> currentlyListeningTo) {
+        this.currentlyListeningTo = currentlyListeningTo;
+    }
+
+    public List<String> getFavouriteArtists() {
+        return favouriteArtists;
+    }
+
+    public void setFavouriteArtists(List<String> favouriteArtists) {
+        this.favouriteArtists = favouriteArtists;
     }
 
     public UserAuth getUserAuth() {
